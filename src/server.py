@@ -10,8 +10,10 @@ def index():
 @app.route("/contact", method=["POST"])
 def get_contacts():
     formdata = bottle.request.forms
-    print(formdata)
-    return {"status": "OK"}
+    name = formdata.get("nombre", "-")
+    email = formdata.get("email", "-")
+    print(name, email)
+    bottle.redirect("http://0.0.0.0:8888/thanks.html")
 
 @app.route("/name/<name>", method=["GET"])
 def get_name(name="Mike"):
