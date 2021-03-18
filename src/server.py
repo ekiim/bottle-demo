@@ -1,3 +1,4 @@
+from os import environ
 import json
 import bottle
 
@@ -12,8 +13,11 @@ def get_contacts():
     formdata = bottle.request.forms
     name = formdata.get("nombre", "-")
     email = formdata.get("email", "-")
+    redirection_url = (
+        environ["STATIC_SERVER"] + "/thanks.html"
+    )
     print(name, email)
-    bottle.redirect("http://0.0.0.0:8888/thanks.html")
+    bottle.redirect(redirection_url)
 
 @app.route("/name/<name>", method=["GET"])
 def get_name(name="Mike"):
