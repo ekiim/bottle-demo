@@ -1,3 +1,5 @@
+from time import time
+from pathlib import Path
 from os import environ
 import json
 import bottle
@@ -8,11 +10,19 @@ app = bottle.Bottle()
 def index():
     return {"status": "OK"}
 
+def store_contact(name, email):
+    data = dict(name=name, email=email)
+    filename = f"{time()}.json"
+    file = Path(environ["STORAGE_DIR"]) / filename
+    data_string = json.dumps(data)
+    file.write_text(data_string)
+
 @app.route("/contact", method=["POST"])
 def get_contacts():
     formdata = bottle.request.forms
     name = formdata.get("nombre", "-")
     email = formdata.get("email", "-")
+    store_contact(name, email)
     redirection_url = (
         environ["STATIC_SERVER"] + "/thanks.html"
     )
