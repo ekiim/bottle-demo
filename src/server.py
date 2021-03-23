@@ -26,7 +26,6 @@ def get_contacts():
     redirection_url = (
         environ["STATIC_SERVER"] + "/thanks.html"
     )
-    print(name, email)
     bottle.redirect(redirection_url)
 
 @app.route("/name/<name>", method=["GET"])
@@ -43,21 +42,21 @@ def get_error(name="Mike"):
 
 @app.error(404)
 def error_404(error):
-    bottle.response.status = 404
-    bottle.response.content_type = "application/json"
-    return json.dumps({"status": "Ups"})
+    bottle.response.status = 303
+    redirect_url = environ["STATIC_SERVER"] + "/error.html"
+    bottle.response.headers["Location"] = redirect_url
 
 @app.error(405)
 def error_405(error):
-    bottle.response.status = 405
-    bottle.response.content_type = "application/json"
-    return json.dumps({"status": "Accediste mal, esto no soporta el verbo http que quieres usar."})
+    bottle.response.status = 303
+    redirect_url = environ["STATIC_SERVER"] + "/error.html"
+    bottle.response.headers["Location"] = redirect_url
 
 @app.error(500)
 def error_500(error):
-    bottle.response.status = 500
-    bottle.response.content_type = "application/json"
-    return json.dumps({"status": "Super Ups"})
+    bottle.response.status = 303
+    redirect_url = environ["STATIC_SERVER"] + "/error.html"
+    bottle.response.headers["Location"] = redirect_url
 
 if __name__ == '__main__':
     print("Iniciando servidor")

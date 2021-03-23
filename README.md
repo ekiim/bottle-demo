@@ -33,12 +33,12 @@ Este proyecto contiene:
  - [X] Sitio estático con 3 paginas.
  - [X] Parametrización de valores de operación mediante variables de ambiente (`.env` file).
  - [X] Forma con re dirección post almacenado en caso de éxito.
- - [ ] Redirección en caso de error en el _API_.
+ - [X] Redirección en caso de error en el _API_.
  - [ ] Almacenamiento de archivos estáticos en el sistema de archivos local.
- - [ ] Configuración de despliegue a Google Cloud Run.
  - [ ] Hoja de estilos `w3.css`.
  - [ ] Archivo _javascript_ para interacción dinámica con el _API_.
  - [ ] Archivo _javascript_ para despliegue inteligente de datos.
+ - [ ] Configuración de despliegue a Google Cloud Run.
 
 ## Notas
 
