@@ -10,12 +10,50 @@ app = bottle.Bottle()
 def index():
     return {"status": "OK"}
 
-def store_contact(name, email):
-    data = dict(name=name, email=email)
-    filename = f"{time()}.json"
-    file = Path(environ["STORAGE_DIR"]) / filename
+def storage_file(collection="contact", ext="json"):
+    """
+    >>> storage_file(collection="users", ext="csv")
+    >>> storage_file(collection="users", ext="json")
+    >>> storage_file(collection="accounts", ext="json")
+    """
+    file_dir = Path(environ["STORAGE_DIR"]) / Path(collection)
+    file_dir.mkdir(exist_ok=True)
+    file = file_dir /  f"{time()}.{ext}"
+    return file
+
+def store_object(data, collection):
+    file = storage_file(collection=collection)
     data_string = json.dumps(data)
     file.write_text(data_string)
+    return True
+
+def store_comment(email, text, entry):
+    data = dict(email=email, comment=text, entry=entry)
+    return store_object(data, f'blogComment_{entry}')
+
+def get_stored_comment(entry):
+    comments_dir = Path(environ["STORAGE_DIR"]) / Path(f"blogComment_{entry}")
+    return list(map(str,comments_dir.iterdir()))
+
+def store_contact(name, email):
+    data = dict(name=name, email=email)
+    return store_object(data, 'contact_form')
+
+@app.route("/comments/<entry>", method=["GET"])
+def get_comments(entry=""):
+    return dict(comments=get_stored_comment(entry))
+
+@app.route("/comments", method=["POST"])
+def save_comment():
+    formdata = bottle.request.forms
+    blog_entry = formdata.get("blog-entry", "-")
+    email = formdata.get("email", "-")
+    comment = formdata.get("comment", "-")
+    store_comment(email, comment, blog_entry)
+    redirection_url = (
+        environ["STATIC_SERVER"] + f"/blog/{blog_entry}.html"
+    )
+    bottle.redirect(redirection_url)
 
 @app.route("/contact", method=["POST"])
 def get_contacts():
