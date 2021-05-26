@@ -67,7 +67,7 @@ def store_contact(name, email):
 @app.route("/comments/<entry>", method=["GET", "OPTIONS"])
 def get_comments(entry=""):
     bottle.response.headers["Access-Control-Allow-Origin"] = (
-        "http://0.0.0.0:8888"
+        "http://localhost:8888"
     )
     bottle.response.headers["Access-Control-Allow-Methods"] = "GET"
     bottle.response.status = 200
