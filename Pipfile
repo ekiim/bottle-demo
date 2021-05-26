@@ -12,5 +12,6 @@ bottle = "*"
 python_version = "3.9"
 
 [scripts]
-www = "python -m http.server --directory www 8888"
+www = "python -m http.server --bind localhost --directory www 8888"
+ 
 server = "python src/server.py"
