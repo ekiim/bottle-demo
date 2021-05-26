@@ -139,4 +139,4 @@ def error_500(error):
 
 if __name__ == '__main__':
     print("Iniciando servidor")
-    app.run(host="0.0.0.0", port=9999, debug=True)
+    app.run(host="localhost", port=9999, debug=True)
