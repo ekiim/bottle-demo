@@ -9,11 +9,17 @@
     action="http://0.0.0.0:9999/comments"
     method="POST"
 >
-    <input name="blog-entry" type="hidden" value="02-copia"/>
+     <input id="blog-entry-name"  name="blog-entry" type="hidden" value="02-copia"/>
     <label for="email">Email:</label> <input name="email" type="email"/>
     <label for="comment">Comment:</label> <textarea name="comment"></textarea>
     <input type="submit" value="POST"/>
     </form>
     <section id="comment-feed">
+        <ul>
+            <li w3-repeat="comments">{{datetime}}:{{email}}: {{comment}}</li>
+        </ul>
     </section>
 </section>
+<script type="application/javascript" src="https://www.w3schools.com/lib/w3.js"></script>
+<script type="application/javascript" src="/js/blog.js"></script>
+
