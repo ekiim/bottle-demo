@@ -22,7 +22,7 @@ window.addEventListener("load", async (e) => {
     const blogEntryName = document.getElementById("blog-entry-name").value;
     console.log(`Estamos en la entrada de blog ${blogEntryName}`);
 
-    var API_URL = "http://0.0.0.0:9999";
+    var API_URL = "http://localhost:9999";
     var route = `/comments/${blogEntryName}`
     const comments_api_url = `${API_URL}${route}`
 
