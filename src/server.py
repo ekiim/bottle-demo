@@ -21,7 +21,7 @@ def storage_file(collection="contact", ext="json"):
     >>> storage_file(collection="accounts", ext="json")
     """
     file_dir = Path(environ["STORAGE_DIR"]) / Path(collection)
-    file_dir.mkdir(exist_ok=True)
+    file_dir.mkdir(exist_ok=True, parents=True)
     file = file_dir /  f"{time()}.{ext}"
     return file
 
